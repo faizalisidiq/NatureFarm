@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:naturefarm/screen/mart.dart';
+import '../widgets/bottom_bar.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key, required String title});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.title});
 
+  final String title;
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,15 +41,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: ConvexAppBar(
-      style: TabStyle.react,
-      items: [
-      TabItem(icon: Icons.home, title: 'Home'),
-      TabItem(icon: Icons.person, title: 'Profile'),
-      ],
-      backgroundColor: const Color(0xFF224D31),
-      onTap: (int i) => print('click index=$i'),
-      )
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 
@@ -64,22 +64,19 @@ class HomePage extends StatelessWidget {
             child: Text(
               'ADMIN',
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Alatsi',
                 fontSize: 32,
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
               ),
-              overflow:
-                  TextOverflow
-                      .ellipsis, // Tambahkan elipsis jika teks terlalu panjang
+              overflow: TextOverflow.ellipsis, // Tambahkan elipsis jika teks terlalu panjang
             ),
           ),
           // Kolom Logout
           Column(
             children: [
               Image.asset(
-                // Ganti Image.network dengan Image.asset
-                'assets/images/logout.png',
+                'assets/images/logout.png', // Pastikan path gambar benar
                 width: 40, // Ukuran logo
                 height: 40,
                 fit: BoxFit.contain,
@@ -88,7 +85,7 @@ class HomePage extends StatelessWidget {
               Text(
                 'LogOut',
                 style: TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Alatsi',
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                   color: Colors.white,
@@ -115,6 +112,14 @@ class HomePage extends StatelessWidget {
                       'https://cdn.builder.io/api/v1/image/assets/TEMP/14145fc4d2db0608291b113d5f196faa232e3bc8?placeholderIfAbsent=true&apiKey=3c764376f2984bc7be953a1dd3a372b5',
                   label: 'Mart',
                   marginTop: 0,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MartScreen(),
+                      ),
+                    );
+                  },
                 ),
                 _buildMenuItem(
                   image:
@@ -154,32 +159,38 @@ class HomePage extends StatelessWidget {
     required String label,
     required double marginTop,
     double width = 90,
+    VoidCallback? onTap, // Tambahkan parameter onTap
   }) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      width: width,
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: Image.network(
-              image,
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
+    return GestureDetector(
+      // Gunakan GestureDetector untuk mendeteksi klik
+      onTap: onTap, // Panggil fungsi onTap saat item diklik
+      child: Container(
+        margin: EdgeInsets.all(10),
+        width: width,
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image.network(
+                image,
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(
-              fontFamily: 'Alatsi',
-              fontSize: 20,
-              color: const Color(0xFF224D31),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: TextStyle(
+                fontFamily: 'Alatsi',
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFF224D31),
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
