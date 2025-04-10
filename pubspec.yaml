@@ -77,6 +77,11 @@ flutter:
     - family: Alatsi
       fonts:
         - asset: assets/fonts/Alatsi-Regular.ttf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

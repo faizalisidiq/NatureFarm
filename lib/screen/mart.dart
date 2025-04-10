@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/mart_top_bar.dart';
 import '../widgets/product_card.dart';
 import '../widgets/bottom_bar.dart';
+import 'input_mart.dart';
 
 class MartScreen extends StatelessWidget {
 
@@ -69,17 +70,27 @@ class AddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 60,
-      height: 60,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Color(0xFF224D31),
-      ),
-      child: const Icon(
-        Icons.add,
-        color: Colors.white,
-        size: 30,
+    return GestureDetector( // Gunakan GestureDetector untuk mendeteksi klik
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => InputDesign(), // Ganti dengan halaman tujuan
+          ),
+        );
+      },
+      child: Container(
+        width: 60,
+        height: 60,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Color(0xFF224D31),
+        ),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 30,
+        ),
       ),
     );
   }
